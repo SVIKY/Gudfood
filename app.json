@@ -1,6 +1,6 @@
 {
   "id": "1e40effa-6c4e-4acf-89b5-3bb32b0b8a4a",
-  "name": "ALProject1",
+  "name": "Gudfood",
   "publisher": "Default publisher",
   "version": "1.0.0.0",
   "brief": "",
@@ -16,7 +16,7 @@
   "application": "19.0.0.0",
   "idRanges": [
     {
-      "from": 50000,
+      "from": 51499,
       "to": 52000
     }
   ],
@@ -25,5 +25,6 @@
     "allowDownloadingSource": false,
     "includeSourceInSymbolFile": false
   },
-  "runtime": "8.0"
+  "runtime": "8.0",
+  "target": "OnPrem"
 }
