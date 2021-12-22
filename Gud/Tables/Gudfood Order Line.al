@@ -10,8 +10,7 @@ table 51503 "Gudfood Order Line"
             trigger OnValidate()
             var
                 GudfoodOrderHeader: Record 51502;
-                ErrorOrderNotExists: TextConst ENU = 'No such order stored.',
-                                   RUS = 'Такого заказа нет в базе данных';
+                ErrorOrderNotExists: Label 'No such order stored.';
             begin
                 if "Order No." = '' then begin
                     Rec."Order No." := xRec."Order No.";
@@ -55,8 +54,7 @@ table 51503 "Gudfood Order Line"
             trigger OnValidate()
             var
                 "Gudfood Item": Record 51500;
-                ErrorItemNotExists: TextConst ENU = 'No such item stored.',
-                                   RUS = 'Такого продукта нет в базе данных';
+                ErrorItemNotExists: Label 'No such item stored.';
             begin
                 if "Gudfood Item".GET("Item No.") then begin
                     Description := "Gudfood Item".Description;
@@ -155,8 +153,7 @@ table 51503 "Gudfood Order Line"
     trigger OnInsert()
     var
         GudfoodOrderHeader: Record 51502;
-        ErrorOrderNotExists: TextConst ENU = 'No such order stored.',
-                                   RUS = 'Такого заказа нет в базе данных';
+        ErrorOrderNotExists: Label 'No such order stored.';
     begin
         if "Order No." = '' then begin
             Rec."Order No." := xRec."Order No.";

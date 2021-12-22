@@ -47,18 +47,14 @@ table 51501 "Posted Gudfood Order Header"
             CalcFormula = Sum("Gudfood Order Line".Amount where("Order No." = field("No.")));
             Editable = false;
         }
-        field(9; "Posting Date"; Date)
-        {
-            Editable = false;
-        }
 
-        field(10; "Shortcut Dimension 1 Code"; Code[20])
+        field(9; "Shortcut Dimension 1 Code"; Code[20])
         {
             DataClassification = ToBeClassified;
             CaptionClass = '1,2,1';
             TableRelation = "Dimension Value".Code where("Global Dimension No." = const(1), Blocked = const(false));
         }
-        field(11; "Shortcut Dimension 2 Code"; Code[20])
+        field(10; "Shortcut Dimension 2 Code"; Code[20])
         {
             DataClassification = ToBeClassified;
             CaptionClass = '1,2,2';
@@ -70,6 +66,10 @@ table 51501 "Posted Gudfood Order Header"
             DataClassification = ToBeClassified;
             Editable = false;
             TableRelation = "Dimension Set Entry";
+        }
+        field(11; "Posting Date"; Date)
+        {
+            Editable = false;
         }
     }
 

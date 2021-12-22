@@ -20,6 +20,7 @@
       "to": 52000
     }
   ],
+  "features": ["TranslationFile","GenerateCaptions"],
   "resourceExposurePolicy": {
     "allowDebugging": true,
     "allowDownloadingSource": false,

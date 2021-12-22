@@ -34,10 +34,8 @@ page 51503 "Gudfood Picture"
                     FileManagement: Codeunit 419;
                     FileName: Text;
                     ClientFileName: Text;
-                    OverrideImageQst: TextConst ENU = 'The existing picture will be replaced. Do you want to continue?',
-                                                RUS = 'Имеющееся изображение будет заменено. Продолжить?';
-                    SelectPictureTxt: TextConst ENU = 'Select a picture to upload',
-                                                RUS = 'Выберите изображение для отправки';
+                    OverrideImageQst: Label 'The existing picture will be replaced. Do you want to continue?';
+                    SelectPictureTxt: Label 'Select a picture to upload';
                 begin
                     Rec.TestField(Rec.Code);
                     if Rec.Picture.HASVALUE then begin
@@ -90,8 +88,7 @@ page 51503 "Gudfood Picture"
                 ToolTip = 'Delete a picture of an item.';
                 trigger OnAction()
                 var
-                    DeleteImageQst: TextConst ENU = 'Are you sure you want to delete the picture?',
-                                              RUS = 'Удалить изображение?';
+                    DeleteImageQst: Label 'Are you sure you want to delete the picture?';
                 begin
                     Rec.TestField(Code);
                     if not Confirm(DeleteImageQst) then

@@ -25,8 +25,7 @@ table 51502 "Gudfood Order Header"
             trigger OnValidate()
             var
                 Customer: Record 18;
-                ErrorFindUser: TextConst ENU = 'No such customer stored.',
-                                        RUS = 'Такого пользователя нет в базе данных';
+                ErrorFindUser: Label 'No such customer stored.';
             begin
                 IF Customer.Get("Sell- to Customer No.") then
                     "Sell- to Customer Name" := Customer.Name
@@ -216,8 +215,7 @@ table 51502 "Gudfood Order Header"
         NewDimSetID: Integer;
         IsHandled: Boolean;
         GudfoodOrderLine: Record 51503;
-        DimensionChange: TextConst ENU = 'You may have changed a dimension.\\Do you want to update the lines?',
-                                   RUS = 'Вы, возможно, изменили измерение. Обновить запись?';
+        DimensionChange: Label 'You may have changed a dimension.\\Do you want to update the lines?';
 
     begin
         IsHandled := false;

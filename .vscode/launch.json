@@ -8,7 +8,7 @@
             "environmentType": "OnPrem",
             "server": "https://navdev.smartcloud.com.ua",
             "serverInstance": "EducationAcademy64BC19",
-            "schemaUpdateMode": "ForceSync",
+            "schemaUpdateMode":"Synchronize",
             "authentication": "Windows",
             "startupObjectId": 51500,
             "startupObjectType": "Table",

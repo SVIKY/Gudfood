@@ -88,8 +88,7 @@ table 51500 "Gudfood Item"
 
     trigger OnDelete()
     var
-        ErrorDeleteUsedItems: TextConst ENU = 'This item is in order. Can not delete ordered item.',
-                                        RUS = 'Этот продукт кто-то заказал. Невозможно удалить уже заказаный продукт';
+        ErrorDeleteUsedItems: Label 'This item is in order. Can not delete ordered item.';
         GudfoodOrderLine: Record 51503;
         PostedGudfoodOrderLine: Record 51504;
     begin

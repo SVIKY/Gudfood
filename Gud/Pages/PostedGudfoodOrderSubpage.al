@@ -1,13 +1,10 @@
-page 51505 "Gudfood Order Subpage"
+page 51506 "Posted Gudfood Order Subpage"
 {
 
-    Caption = 'Gudfood Order Subpage';
+    Caption = 'Posted Gudfood Order Subpage';
     PageType = ListPart;
-    SourceTable = "Gudfood Order Line";
-    Editable = true;
-    DelayedInsert = true;
-    MultipleNewLines = true;
-    AutoSplitKey = true;
+    SourceTable = "Posted Gudfood Order Line";
+    Editable = false;
     ApplicationArea = All;
     UsageCategory = Lists;
 
