@@ -1,7 +1,7 @@
 table 51500 "Gudfood Item"
 {
     DataClassification = ToBeClassified;
-
+    DataCaptionFields = Code, Type, Description;
     fields
     {
         field(1; Code; Code[20])
@@ -90,11 +90,9 @@ table 51500 "Gudfood Item"
     var
         ErrorDeleteUsedItems: Label 'This item is in order. Can not delete ordered item.';
         GudfoodOrderLine: Record 51503;
-        PostedGudfoodOrderLine: Record 51504;
     begin
         GudfoodOrderLine.SetFilter("Item No.", '=%1', Code);
-        PostedGudfoodOrderLine.SetFilter("Item No.", '=%1', Code);
-        if (not GudfoodOrderLine.FindFirst) and (not PostedGudfoodOrderLine.FindFirst) then
+        if (not GudfoodOrderLine.FindFirst) then
             exit;
         error(ErrorDeleteUsedItems);
     end;

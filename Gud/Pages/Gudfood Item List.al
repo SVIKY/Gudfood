@@ -14,6 +14,8 @@ page 51500 "Gudfood Item List"
         {
             repeater(General)
             {
+                CaptionML = ENU = 'General',
+                            RUS = 'Общие';
                 field("Code"; Rec.Code)
                 {
                     ApplicationArea = All;

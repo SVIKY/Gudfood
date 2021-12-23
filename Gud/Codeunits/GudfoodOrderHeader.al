@@ -30,7 +30,7 @@ codeunit 51502 GudfoodOrderHeader
             Message(ErrorUnableToInsert);
             exit;
         END;
-        GudfoodOrderLine.SetFilter("Order No.", '=%1', GudfoodOrderHeader."No.");
+        GudfoodOrderLine.SetRange("Order No.", GudfoodOrderHeader."No.");
         if GudfoodOrderLine.FindSet() then begin
             repeat
                 Codeunit.Run(51503, GudfoodOrderLine);

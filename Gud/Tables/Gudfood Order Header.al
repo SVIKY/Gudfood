@@ -1,7 +1,7 @@
 table 51502 "Gudfood Order Header"
 {
     DataClassification = ToBeClassified;
-
+    DataCaptionFields = "No.", "Sell- to Customer Name";
     fields
     {
         field(1; "No."; Code[20])
