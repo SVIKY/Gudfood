@@ -12,8 +12,7 @@ page 51502 "Gudfood Item Card"
         {
             group(General)
             {
-                CaptionML = ENU = 'General',
-                            RUS = 'Общие';
+                Caption = 'General';
                 field("Code"; Rec.Code)
                 {
                     ApplicationArea = All;
@@ -47,8 +46,7 @@ page 51502 "Gudfood Item Card"
             }
             group(Order)
             {
-                CaptionML = ENU = 'Order',
-                            RUS = 'Заказ';
+                Caption = 'Order';
                 field("Quantity ordered"; Rec."Qty. Ordered")
                 {
                     ApplicationArea = All;

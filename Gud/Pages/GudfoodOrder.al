@@ -14,8 +14,7 @@ page 51501 "Gudfood Order"
         {
             group(General)
             {
-                CaptionML = ENU = 'General',
-                            RUS = 'Общие';
+                Caption = 'General';
                 field("No."; Rec."No.")
                 {
                     ToolTip = 'Specifies the value of the No. field.';
@@ -169,7 +168,7 @@ page 51501 "Gudfood Order"
     var
         GudfoodOrderLine: Record 51503;
     begin
-        GudfoodOrderLine.SetFilter("Order No.", '=%1', "No.");
+        GudfoodOrderLine.SetRange("Order No.", "No.");
         isPostingActive := GudfoodOrderLine.FindFirst();
     end;
 }
