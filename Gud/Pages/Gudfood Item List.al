@@ -7,6 +7,7 @@ page 51500 "Gudfood Item List"
     SourceTable = "Gudfood Item";
     UsageCategory = Lists;
     Editable = false;
+    CardPageId = 51502;
 
     layout
     {

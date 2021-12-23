@@ -1,6 +1,5 @@
 page 51509 "Gudfood Orders List"
 {
-    CardPageId = 51501;
     Caption = 'Gudfood Orders List';
     PageType = ListPlus;
     SourceTable = "Gudfood Order Header";
@@ -8,6 +7,7 @@ page 51509 "Gudfood Orders List"
     PromotedActionCategories = 'New,Process,Report,Post,Print,Export,Dimensions';
     ApplicationArea = All;
     UsageCategory = Lists;
+    CardPageId = 51501;
 
     layout
     {
