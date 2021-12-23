@@ -28,7 +28,7 @@ page 51503 "Gudfood Picture"
                 Image = Import;
                 Promoted = false;
                 ToolTip = 'Import a picture of an item.';
-
+                Enabled = DeleteExportEnabled;
                 trigger OnAction()
                 var
                     FileManagement: Codeunit 419;
@@ -61,6 +61,7 @@ page 51503 "Gudfood Picture"
                 Caption = 'Export file';
                 Image = Export;
                 Promoted = false;
+                Enabled = DeleteExportEnabled;
                 ToolTip = 'Export a picture of an item.';
                 trigger OnAction()
                 var

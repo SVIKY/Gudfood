@@ -94,6 +94,7 @@ page 51509 "Gudfood Orders List"
                 PromotedIsBig = true;
                 PromotedCategory = Category4;
                 RunObject = codeunit 51502;
+                Enabled = isPostingActive;
                 trigger OnAction()
                 begin
                     CurrPage.SETSELECTIONFILTER(Rec);

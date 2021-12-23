@@ -107,6 +107,7 @@ page 51501 "Gudfood Order"
                 PromotedIsBig = true;
                 PromotedCategory = Category4;
                 RunObject = codeunit 51502;
+                Enabled = isPostingActive;
                 trigger OnAction()
                 begin
                     Page.Run(51501);
