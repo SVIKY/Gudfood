@@ -181,6 +181,11 @@ page 51509 "Gudfood Orders List"
         }
     }
 
+    trigger OnAfterGetRecord()
+    begin
+        CheckPostingActive();
+    end;
+
     var
         isPostingActive: Boolean;
 

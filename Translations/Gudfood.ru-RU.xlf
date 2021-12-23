@@ -546,7 +546,7 @@
         </trans-unit>
         <trans-unit id="Page 201881534 - Property 2019332006" size-unit="char" translate="yes" xml:space="preserve">
           <source>New,Process,Report,Post,Print,Export,Dimensions</source>
-          <target>Создать,Обработать,Отчёт,Опубликовать,Экспорт,Измерения</target>
+          <target>Создать,Обработать,Отчёт,Опубликовать,Распечатать,Экспорт,Измерения</target>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page Gudfood Order - Property PromotedActionCategories</note>
         </trans-unit>
@@ -726,7 +726,7 @@
         </trans-unit>
         <trans-unit id="Page 4259345301 - Property 2019332006" size-unit="char" translate="yes" xml:space="preserve">
           <source>New,Process,Report,Post,Print,Export,Dimensions</source>
-          <target>Создать,Обработать,Опубликовать,Распечатать,Єкспорт,Измерения</target>
+          <target>Создать,Обработать,Отчёт,Опубликовать,Распечатать,Єкспорт,Измерения</target>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page Gudfood Orders List - Property PromotedActionCategories</note>
         </trans-unit>
