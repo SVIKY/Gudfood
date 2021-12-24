@@ -59,7 +59,7 @@
         </trans-unit>
         <trans-unit id="Table 1903646731 - Field 1878130204 - Property 62802879" size-unit="char" translate="yes" xml:space="preserve">
           <source>,Salat,Burger,Capcake,Drink</source>
-          <target>,Салат,Бургер,апкейк,Напиток</target>
+          <target>,Салат,Бургер,Пироженное,Напиток</target>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table Gudfood Item - Field Type - Property OptionCaption</note>
         </trans-unit>

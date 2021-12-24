@@ -38,11 +38,9 @@ page 51503 "Gudfood Picture"
                     SelectPictureTxt: Label 'Select a picture to upload';
                 begin
                     Rec.TestField(Rec.Code);
-                    if Rec.Picture.HASVALUE then begin
-                        if NOT CONFIRM(OverrideImageQst) then begin
+                    if Rec.Picture.HASVALUE then
+                        if NOT CONFIRM(OverrideImageQst) then
                             Exit;
-                        end;
-                    end;
 
                     FileName := FileManagement.UploadFile(SelectPictureTxt, ClientFileName);
                     if FileName = '' then
@@ -66,7 +64,6 @@ page 51503 "Gudfood Picture"
                 trigger OnAction()
                 var
                     DummyPictureEntity: Record 5468;
-                    FileName: Text;
                     FileManagement: Codeunit 419;
                     ToFile: Text;
                     ExportPath: Text;
@@ -103,7 +100,7 @@ page 51503 "Gudfood Picture"
 
     trigger OnAfterGetRecord()
     begin
-        SetEditableOnPictureActions;
+        SetEditableOnPictureActions();
     end;
 
     local procedure SetEditableOnPictureActions()

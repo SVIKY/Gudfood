@@ -1,9 +1,10 @@
-page 51501 "Gudfood Order"
+page 51507 "Posted Gudfood Order"
 {
 
-    Caption = 'Gudfood Order';
+    Caption = 'Posted Gudfood Order';
     PageType = Document;
-    SourceTable = "Gudfood Order Header";
+    SourceTable = "Posted Gudfood Order Header";
+    Editable = false;
     PromotedActionCategories = 'New,Process,Report,Post,Print,Export,Dimensions';
     ApplicationArea = All;
     UsageCategory = Documents;
@@ -15,21 +16,16 @@ page 51501 "Gudfood Order"
             group(General)
             {
                 Caption = 'General';
-                field("No."; Rec."No.")
+                field("No.";
+                Rec."No.")
                 {
                     ToolTip = 'Specifies the value of the No. field.';
                     ApplicationArea = All;
-                    trigger OnAssistEdit()
-                    begin
-                        if AssistEditNo then
-                            CurrPage.Update();
-                    end;
                 }
                 field("Sell- to Customer No."; Rec."Sell- to Customer No.")
                 {
                     ToolTip = 'Specifies the value of the Sell- to Customer No. field.';
                     ApplicationArea = All;
-                    ShowMandatory = true;
                 }
                 field("Sell- to Customer Name"; Rec."Sell- to Customer Name")
                 {
@@ -40,21 +36,20 @@ page 51501 "Gudfood Order"
                 {
                     ToolTip = 'Specifies the value of the Order Date field.';
                     ApplicationArea = All;
-                    ShowMandatory = true;
                 }
                 field("Posting No."; Rec."Posting No.")
                 {
                     ToolTip = 'Specifies the value of the Posting No. field.';
                     ApplicationArea = All;
-                    trigger OnAssistEdit()
-                    begin
-                        if AssistEditNo then
-                            CurrPage.Update();
-                    end;
                 }
                 field("Date Created"; Rec."Date Created")
                 {
                     ToolTip = 'Specifies the value of the Date Created field.';
+                    ApplicationArea = All;
+                }
+                field("Posting Date"; Rec."Posting Date")
+                {
+                    ToolTip = 'Specifies the Date of posting.';
                     ApplicationArea = All;
                 }
                 field("Total Qty"; Rec."Total Qty")
@@ -80,8 +75,7 @@ page 51501 "Gudfood Order"
             }
             group(Lines)
             {
-                Caption = 'Order lines';
-                part("Order Lines"; "Gudfood Order Subpage")
+                part("Order Lines"; "Posted Gudfood Order Subpage")
                 {
                     ApplicationArea = All;
                     SubPageLink = "Order No." = field("No.");
@@ -92,83 +86,4 @@ page 51501 "Gudfood Order"
         }
 
     }
-
-    actions
-    {
-        area(Processing)
-        {
-            action("Post")
-            {
-                ApplicationArea = All;
-                Caption = 'Post';
-                Image = PostDocument;
-                Promoted = true;
-                PromotedIsBig = true;
-                PromotedCategory = Category4;
-                RunObject = codeunit 51502;
-                Enabled = isPostingActive;
-                trigger OnAction()
-                begin
-                    Page.Run(51501);
-                end;
-            }
-
-            action("Print")
-            {
-                ApplicationArea = All;
-                Caption = 'Print';
-                Image = Print;
-                Promoted = true;
-                PromotedIsBig = true;
-                PromotedCategory = Category5;
-                RunObject = codeunit 51500;
-            }
-
-            action("ExportOrder")
-            {
-                ApplicationArea = All;
-                Caption = 'ExportOrder';
-                Image = XMLFile;
-                Promoted = true;
-                PromotedIsBig = true;
-                PromotedCategory = Category6;
-                RunObject = codeunit 51501;
-            }
-            action("Dimensions")
-            {
-                ApplicationArea = All;
-                Caption = 'Dimensions';
-                Image = Dimensions;
-                Promoted = true;
-                PromotedIsBig = true;
-                PromotedCategory = Category7;
-                trigger OnAction()
-                begin
-                    ShowDocDim;
-                    CurrPage.SAVERECORD;
-                end;
-            }
-        }
-    }
-
-    var
-        isPostingActive: Boolean;
-
-    trigger OnDeleteRecord(): Boolean
-    begin
-        Page.Run(51501);
-    end;
-
-    trigger OnAfterGetRecord()
-    begin
-        CheckPostingActive();
-    end;
-
-    local procedure CheckPostingActive()
-    var
-        GudfoodOrderLine: Record 51503;
-    begin
-        GudfoodOrderLine.SetRange("Order No.", "No.");
-        isPostingActive := GudfoodOrderLine.FindFirst();
-    end;
 }

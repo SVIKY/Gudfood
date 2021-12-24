@@ -7,7 +7,7 @@ page 51509 "Gudfood Orders List"
     PromotedActionCategories = 'New,Process,Report,Post,Print,Export,Dimensions';
     ApplicationArea = All;
     UsageCategory = Lists;
-    CardPageId = 51501;
+    CardPageId = "Gudfood Order";
 
     layout
     {
@@ -86,23 +86,29 @@ page 51509 "Gudfood Orders List"
         {
             action("Post")
             {
+                ToolTip = 'Post record.';
                 ApplicationArea = All;
                 Caption = 'Post';
                 Image = PostDocument;
                 Promoted = true;
                 PromotedIsBig = true;
                 PromotedCategory = Category4;
-                RunObject = codeunit 51502;
                 Enabled = isPostingActive;
                 trigger OnAction()
+                var
+                    GudfoodCodeUnit: Codeunit Gudfood;
                 begin
                     CurrPage.SETSELECTIONFILTER(Rec);
+                    GudfoodCodeUnit.AddPostedGudfoodOrderHeader(Rec);
+                    GudfoodCodeUnit.DeleteGudfoodOrderHeader(Rec);
+                    Rec.Reset();
                     Page.Run(51501);
                 end;
             }
 
             action("Print")
             {
+                ToolTip = 'Print record.';
                 ApplicationArea = All;
                 Caption = 'Print';
                 Image = Print;
@@ -117,28 +123,31 @@ page 51509 "Gudfood Orders List"
             }
             action("Print All Orders")
             {
+                ToolTip = 'Print all orders.';
                 ApplicationArea = All;
                 Caption = 'Print all orders';
                 Image = Print;
                 Promoted = true;
                 PromotedIsBig = true;
                 PromotedCategory = Category5;
-                RunObject = report 51501;
+                RunObject = report "Gudfood Each Customer Order";
             }
 
             action("Print All Orders Lines")
             {
+                ToolTip = 'Print all orders lines.';
                 ApplicationArea = All;
                 Caption = 'Print all orders lines';
                 Image = Print;
                 Promoted = true;
                 PromotedIsBig = true;
                 PromotedCategory = Category5;
-                RunObject = report 51502;
+                RunObject = report "Gudfood All Report";
             }
 
             action("ExportOrder")
             {
+                ToolTip = 'Export orders.';
                 ApplicationArea = All;
                 Caption = 'Export order';
                 Image = XMLFile;
@@ -146,25 +155,30 @@ page 51509 "Gudfood Orders List"
                 PromotedIsBig = true;
                 PromotedCategory = Category6;
                 trigger OnAction()
+                var
+                    GudfoodCodeUnit: Codeunit Gudfood;
                 begin
                     CurrPage.SETSELECTIONFILTER(Rec);
-                    Codeunit.Run(51501);
+                    GudfoodCodeUnit.RunXmlPort(Rec);
+                    Rec.Reset();
                 end;
             }
 
             action("ExportAllOrder")
             {
+                ToolTip = 'Export all Orders.';
                 ApplicationArea = All;
                 Caption = 'Export all orders';
                 Image = XMLFile;
                 Promoted = true;
                 PromotedIsBig = true;
                 PromotedCategory = Category6;
-                RunObject = xmlport 51500;
+                RunObject = xmlport "Export Gudfood Order";
             }
 
             action("Dimensions")
             {
+                ToolTip = 'Dimensions.';
                 ApplicationArea = All;
                 Caption = 'Dimensions';
                 Image = Dimensions;
@@ -173,12 +187,17 @@ page 51509 "Gudfood Orders List"
                 PromotedCategory = Category7;
                 trigger OnAction()
                 begin
-                    ShowDocDim;
-                    CurrPage.SAVERECORD;
+                    ShowDocDim();
+                    CurrPage.SAVERECORD();
                 end;
             }
         }
     }
+
+    trigger OnDeleteRecord(): Boolean
+    begin
+        Page.Run(51509);
+    end;
 
     trigger OnAfterGetRecord()
     begin
@@ -193,6 +212,6 @@ page 51509 "Gudfood Orders List"
         GudfoodOrderLine: Record 51503;
     begin
         GudfoodOrderLine.SetRange("Order No.", "No.");
-        isPostingActive := GudfoodOrderLine.FindFirst();
+        isPostingActive := Not GudfoodOrderLine.IsEmpty();
     end;
 }

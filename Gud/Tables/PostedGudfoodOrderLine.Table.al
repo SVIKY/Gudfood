@@ -118,13 +118,10 @@ table 51504 "Posted Gudfood Order Line"
     end;
 
     procedure ShowDocDim()
-    var
-        OldDimSetID: Integer;
     begin
-        OldDimSetID := "Dimension Set ID";
         "Dimension Set ID" :=
           DimMgt.EditDimensionSet(
-            "Dimension Set ID", STRSUBSTNO('%1', "Order No."),
+            "Dimension Set ID", StrSubstNo("Order No."),
             "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code");
     end;
 }

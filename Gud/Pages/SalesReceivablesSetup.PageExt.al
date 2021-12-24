@@ -1,4 +1,4 @@
-pageextension 51520 "Sales & Receivables Setup" extends "Sales & Receivables Setup"
+pageextension 51520 "Sales&ReceivablesSetup" extends "Sales & Receivables Setup"
 {
     layout
     {

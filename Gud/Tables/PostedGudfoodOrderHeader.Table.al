@@ -38,13 +38,13 @@ table 51501 "Posted Gudfood Order Header"
         field(7; "Total Qty"; Decimal)
         {
             FieldClass = FlowField;
-            CalcFormula = Sum("Gudfood Order Line".Quantity where("Order No." = field("No.")));
+            CalcFormula = Sum("Posted Gudfood Order Line".Quantity where("Order No." = field("No.")));
             Editable = false;
         }
         field(8; "Total Amount"; Decimal)
         {
             FieldClass = FlowField;
-            CalcFormula = Sum("Gudfood Order Line".Amount where("Order No." = field("No.")));
+            CalcFormula = Sum("Posted Gudfood Order Line".Amount where("Order No." = field("No.")));
             Editable = false;
         }
 

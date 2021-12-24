@@ -14,8 +14,7 @@ page 51508 "Gudfood Order Subpage ReadOnly"
         {
             repeater(General)
             {
-                CaptionML = ENU = 'General',
-                            RUS = 'Общие';
+                Caption = 'General';
                 field("Item No."; Rec."Item No.")
                 {
                     ToolTip = 'Specifies the item code.';

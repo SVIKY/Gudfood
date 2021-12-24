@@ -1,27 +1,25 @@
-page 51502 "Gudfood Item Card"
+page 51500 "Gudfood Item List"
 {
+
     ApplicationArea = All;
-    Caption = 'Gudfood Item Card';
-    PageType = Card;
+    Caption = 'Gudfood Item List';
+    PageType = List;
     SourceTable = "Gudfood Item";
     UsageCategory = Lists;
+    Editable = false;
+    CardPageId = "Gudfood Item Card";
 
     layout
     {
         area(content)
         {
-            group(General)
+            repeater(General)
             {
                 Caption = 'General';
                 field("Code"; Rec.Code)
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the code of the item.';
-                    trigger OnAssistEdit()
-                    begin
-                        IF Rec.AssistEdit THEN
-                            CurrPage.UPDATE;
-                    end;
                 }
                 field("Description"; Rec.Description)
                 {
@@ -38,15 +36,6 @@ page 51502 "Gudfood Item Card"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the type of the item.';
                 }
-                field("Shelf Life"; Rec."Shelf Life")
-                {
-                    ApplicationArea = All;
-                    ToolTip = 'Specifies the shelf life of item.';
-                }
-            }
-            group(Order)
-            {
-                Caption = 'Order';
                 field("Quantity ordered"; Rec."Qty. Ordered")
                 {
                     ApplicationArea = All;
@@ -57,12 +46,17 @@ page 51502 "Gudfood Item Card"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the quantity of items that are in customers order lists.';
                 }
+                field("Shelf Life"; Rec."Shelf Life")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the shelf life of item.';
+                }
             }
         }
 
         area(FactBoxes)
         {
-            part("Item Picture"; "Gudfood Picture")
+            part("Item Picture"; "Gudfood Picture ReadOnly")
             {
                 ApplicationArea = All;
                 SubPageLink = Code = field(Code);
