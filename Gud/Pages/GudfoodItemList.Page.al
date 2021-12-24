@@ -7,6 +7,7 @@ page 51500 "Gudfood Item List"
     SourceTable = "Gudfood Item";
     UsageCategory = Lists;
     Editable = false;
+    CardPageId = "Gudfood Item Card";
 
     layout
     {
@@ -14,8 +15,7 @@ page 51500 "Gudfood Item List"
         {
             repeater(General)
             {
-                CaptionML = ENU = 'General',
-                            RUS = 'Общие';
+                Caption = 'General';
                 field("Code"; Rec.Code)
                 {
                     ApplicationArea = All;

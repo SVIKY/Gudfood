@@ -44,6 +44,30 @@ xmlport 51500 "Export Gudfood Order"
                         LinkTable = GudfoodOrderHeader;
                         LinkFields = "Order No." = field("No.");
                         MinOccurs = Zero;
+                        fieldelement(TotalAmount; GudfoodOrderHeader."Posting No.")
+                        {
+                        }
+                        textelement(Item)
+                        {
+                            fieldelement(TotalAmount; GudfoodOrderLine."Item No.")
+                            {
+                            }
+                            fieldelement(TotalAmount; GudfoodOrderLine."Item Type")
+                            {
+                            }
+                            fieldelement(TotalAmount; GudfoodOrderLine.Description)
+                            {
+                            }
+                            fieldelement(TotalAmount; GudfoodOrderLine."Unit Price")
+                            {
+                            }
+                        }
+                        fieldelement(TotalAmount; GudfoodOrderLine.Quantity)
+                        {
+                        }
+                        fieldelement(TotalAmount; GudfoodOrderLine.Amount)
+                        {
+                        }
                     }
                 }
             }

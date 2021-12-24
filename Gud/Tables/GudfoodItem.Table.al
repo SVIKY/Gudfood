@@ -11,7 +11,7 @@ table 51500 "Gudfood Item"
             trigger OnValidate()
             begin
                 if Rec.Code <> xRec.Code then begin
-                    SalesReceivablesSetup.Get;
+                    SalesReceivablesSetup.Get();
                     NoSeriesMgt.TestManual(SalesReceivablesSetup."Gudfood Items Nos.");
                     Code := '';
                 end;
@@ -75,7 +75,7 @@ table 51500 "Gudfood Item"
     trigger OnInsert()
     begin
         if Code = '' then begin
-            SalesReceivablesSetup.get;
+            SalesReceivablesSetup.Get();
             SalesReceivablesSetup.TestField("Gudfood Items Nos.");
             NoSeriesMgt.InitSeries(SalesReceivablesSetup."Gudfood Items Nos.", xRec.Code, 0D, Code, SalesReceivablesSetup."Gudfood Items Nos.");
         end;
@@ -88,13 +88,13 @@ table 51500 "Gudfood Item"
 
     trigger OnDelete()
     var
-        ErrorDeleteUsedItems: Label 'This item is in order. Can not delete ordered item.';
-        GudfoodOrderLine: Record 51503;
+        GudfoodOrderLine: Record "Gudfood Order Line";
+        DeleteUsedItemsErr: Label 'This item is in order. Can not delete ordered item.';
     begin
-        GudfoodOrderLine.SetFilter("Item No.", '=%1', Code);
-        if (not GudfoodOrderLine.FindFirst) then
+        GudfoodOrderLine.SetRange("Item No.", Code);
+        if (not GudfoodOrderLine.IsEmpty()) then
             exit;
-        error(ErrorDeleteUsedItems);
+        error(DeleteUsedItemsErr);
     end;
 
     trigger OnRename()
@@ -104,7 +104,7 @@ table 51500 "Gudfood Item"
 
     procedure AssistEdit(): Boolean
     begin
-        SalesReceivablesSetup.GET;
+        SalesReceivablesSetup.Get();
         SalesReceivablesSetup.TestField("Gudfood Items Nos.");
         if NoSeriesMgt.SelectSeries(SalesReceivablesSetup."Gudfood Items Nos.", xRec.Code, Code) then begin
             NoSeriesMgt.SetSeries(Code);

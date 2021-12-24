@@ -14,15 +14,14 @@ page 51501 "Gudfood Order"
         {
             group(General)
             {
-                CaptionML = ENU = 'General',
-                            RUS = 'Общие';
+                Caption = 'General';
                 field("No."; Rec."No.")
                 {
                     ToolTip = 'Specifies the value of the No. field.';
                     ApplicationArea = All;
                     trigger OnAssistEdit()
                     begin
-                        if AssistEditNo then
+                        if AssistEditNo() then
                             CurrPage.Update();
                     end;
                 }
@@ -49,7 +48,7 @@ page 51501 "Gudfood Order"
                     ApplicationArea = All;
                     trigger OnAssistEdit()
                     begin
-                        if AssistEditNo then
+                        if AssistEditNo() then
                             CurrPage.Update();
                     end;
                 }
@@ -100,43 +99,62 @@ page 51501 "Gudfood Order"
         {
             action("Post")
             {
+                ToolTip = 'Post order';
                 ApplicationArea = All;
                 Caption = 'Post';
                 Image = PostDocument;
                 Promoted = true;
                 PromotedIsBig = true;
                 PromotedCategory = Category4;
-                RunObject = codeunit 51502;
                 Enabled = isPostingActive;
                 trigger OnAction()
+                var
+                    GudfoodCodeUnit: Codeunit Gudfood;
                 begin
+                    GudfoodCodeUnit.AddPostedGudfoodOrderHeader(Rec);
+                    GudfoodCodeUnit.DeleteGudfoodOrderHeader(Rec);
                     Page.Run(51501);
                 end;
             }
 
             action("Print")
             {
+                ToolTip = 'Print order';
                 ApplicationArea = All;
                 Caption = 'Print';
                 Image = Print;
                 Promoted = true;
                 PromotedIsBig = true;
                 PromotedCategory = Category5;
-                RunObject = codeunit 51500;
+                trigger OnAction()
+                var
+                    GudfoodCodeUnit: Codeunit Gudfood;
+                begin
+                    GudfoodCodeUnit.RunOrder(Rec);
+                    Page.Run(51501);
+                end;
             }
 
             action("ExportOrder")
             {
+                ToolTip = 'Export order';
                 ApplicationArea = All;
                 Caption = 'ExportOrder';
                 Image = XMLFile;
                 Promoted = true;
                 PromotedIsBig = true;
                 PromotedCategory = Category6;
-                RunObject = codeunit 51501;
+                trigger OnAction()
+                var
+                    GudfoodCodeUnit: Codeunit Gudfood;
+                begin
+                    GudfoodCodeUnit.RunXmlPort(Rec);
+                    Page.Run(51501);
+                end;
             }
             action("Dimensions")
             {
+                ToolTip = 'Dimensions of order';
                 ApplicationArea = All;
                 Caption = 'Dimensions';
                 Image = Dimensions;
@@ -145,8 +163,8 @@ page 51501 "Gudfood Order"
                 PromotedCategory = Category7;
                 trigger OnAction()
                 begin
-                    ShowDocDim;
-                    CurrPage.SAVERECORD;
+                    ShowDocDim();
+                    CurrPage.SAVERECORD();
                 end;
             }
         }
@@ -167,9 +185,9 @@ page 51501 "Gudfood Order"
 
     local procedure CheckPostingActive()
     var
-        GudfoodOrderLine: Record 51503;
+        GudfoodOrderLine: Record "Gudfood Order Line";
     begin
-        GudfoodOrderLine.SetFilter("Order No.", '=%1', "No.");
-        isPostingActive := GudfoodOrderLine.FindFirst();
+        GudfoodOrderLine.SetRange("Order No.", "No.");
+        isPostingActive := Not GudfoodOrderLine.IsEmpty();
     end;
 }

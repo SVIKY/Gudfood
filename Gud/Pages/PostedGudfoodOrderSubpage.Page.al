@@ -1,9 +1,9 @@
-page 51508 "Gudfood Order Subpage ReadOnly"
+page 51506 "Posted Gudfood Order Subpage"
 {
 
-    Caption = 'Gudfood Order Subpage ReadOnly';
+    Caption = 'Posted Gudfood Order Subpage';
     PageType = ListPart;
-    SourceTable = "Gudfood Order Line";
+    SourceTable = "Posted Gudfood Order Line";
     Editable = false;
     ApplicationArea = All;
     UsageCategory = Lists;
@@ -14,12 +14,16 @@ page 51508 "Gudfood Order Subpage ReadOnly"
         {
             repeater(General)
             {
-                CaptionML = ENU = 'General',
-                            RUS = 'Общие';
+                Caption = 'General';
                 field("Item No."; Rec."Item No.")
                 {
                     ToolTip = 'Specifies the item code.';
                     ApplicationArea = All;
+                    ShowMandatory = true;
+                    trigger OnValidate()
+                    begin
+                        CurrPage.Update(true);
+                    end;
                 }
                 field("Item Type"; Rec."Item Type")
                 {
@@ -35,6 +39,11 @@ page 51508 "Gudfood Order Subpage ReadOnly"
                 {
                     ToolTip = 'Specifies the quantity of item that wil be ordered.';
                     ApplicationArea = All;
+                    ShowMandatory = true;
+                    trigger OnValidate()
+                    begin
+                        CurrPage.Update(true);
+                    end;
                 }
                 field("Unit Price"; Rec."Unit Price")
                 {

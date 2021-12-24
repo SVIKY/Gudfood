@@ -15,9 +15,9 @@ page 51507 "Posted Gudfood Order"
         {
             group(General)
             {
-                CaptionML = ENU = 'General',
-                            RUS = 'Общие';
-                field("No."; Rec."No.")
+                Caption = 'General';
+                field("No.";
+                Rec."No.")
                 {
                     ToolTip = 'Specifies the value of the No. field.';
                     ApplicationArea = All;

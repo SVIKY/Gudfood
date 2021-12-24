@@ -9,8 +9,8 @@ table 51503 "Gudfood Order Line"
             TableRelation = "Gudfood Order Header";
             trigger OnValidate()
             var
-                GudfoodOrderHeader: Record 51502;
-                ErrorOrderNotExists: Label 'No such order stored.';
+                GudfoodOrderHeader: Record "Gudfood Order Header";
+                OrderNotExistsErr: Label 'No such order stored.';
             begin
                 if "Order No." = '' then begin
                     Rec."Order No." := xRec."Order No.";
@@ -23,7 +23,7 @@ table 51503 "Gudfood Order Line"
                     "Shortcut Dimension 2 Code" := GudfoodOrderHeader."Shortcut Dimension 2 Code";
                     "Dimension Set ID" := GudfoodOrderHeader."Dimension Set ID";
                 end else begin
-                    Message(ErrorOrderNotExists);
+                    Message(OrderNotExistsErr);
                     Rec."Order No." := xRec."Order No.";
                 END;
                 Amount := Quantity * "Unit Price";
@@ -53,18 +53,18 @@ table 51503 "Gudfood Order Line"
             TableRelation = "Gudfood Item";
             trigger OnValidate()
             var
-                "Gudfood Item": Record 51500;
-                ErrorItemNotExists: Label 'No such item stored.';
+                "Gudfood Item": Record "Gudfood Item";
+                ItemNotExistsErr: Label 'No such item stored.';
             begin
                 if "Gudfood Item".GET("Item No.") then begin
                     Description := "Gudfood Item".Description;
                     "Unit Price" := "Gudfood Item"."Unit Price";
                     "Item Type" := "Gudfood Item".Type;
                     if "Gudfood Item"."Shelf Life" < Today then
-                        MESSAGE(ErrorItemNotExists);
+                        MESSAGE(ItemNotExistsErr);
                 end
                 else begin
-                    Message(ErrorItemNotExists);
+                    Message(ItemNotExistsErr);
                     Rec."Item No." := xRec."Item No.";
                 end;
                 Amount := Quantity * "Unit Price";
@@ -152,8 +152,8 @@ table 51503 "Gudfood Order Line"
 
     trigger OnInsert()
     var
-        GudfoodOrderHeader: Record 51502;
-        ErrorOrderNotExists: Label 'No such order stored.';
+        GudfoodOrderHeader: Record "Gudfood Order Header";
+        OrderNotExistsErr: Label 'No such order stored.';
     begin
         if "Order No." = '' then begin
             Rec."Order No." := xRec."Order No.";
@@ -166,7 +166,7 @@ table 51503 "Gudfood Order Line"
             "Shortcut Dimension 2 Code" := GudfoodOrderHeader."Shortcut Dimension 2 Code";
             "Dimension Set ID" := GudfoodOrderHeader."Dimension Set ID";
         end else begin
-            Message(ErrorOrderNotExists);
+            Message(OrderNotExistsErr);
             Rec."Order No." := xRec."Order No.";
         END;
         Amount := Quantity * "Unit Price";
@@ -188,13 +188,10 @@ table 51503 "Gudfood Order Line"
     end;
 
     procedure ShowDocDim()
-    var
-        OldDimSetID: Integer;
     begin
-        OldDimSetID := "Dimension Set ID";
         "Dimension Set ID" :=
           DimMgt.EditDimensionSet(
-            "Dimension Set ID", STRSUBSTNO('%1', "Order No."),
+            "Dimension Set ID", StrSubstNo("Order No."),
             "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code");
     end;
 }

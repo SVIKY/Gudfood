@@ -1,10 +1,13 @@
-page 51506 "Posted Gudfood Order Subpage"
+page 51505 "Gudfood Order Subpage"
 {
 
-    Caption = 'Posted Gudfood Order Subpage';
+    Caption = 'Gudfood Order Subpage';
     PageType = ListPart;
-    SourceTable = "Posted Gudfood Order Line";
-    Editable = false;
+    SourceTable = "Gudfood Order Line";
+    Editable = true;
+    DelayedInsert = true;
+    MultipleNewLines = true;
+    AutoSplitKey = true;
     ApplicationArea = All;
     UsageCategory = Lists;
 
@@ -14,8 +17,7 @@ page 51506 "Posted Gudfood Order Subpage"
         {
             repeater(General)
             {
-                CaptionML = ENU = 'General',
-                            RUS = 'Общие';
+                Caption = 'General';
                 field("Item No."; Rec."Item No.")
                 {
                     ToolTip = 'Specifies the item code.';

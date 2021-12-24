@@ -25,13 +25,13 @@ table 51502 "Gudfood Order Header"
             trigger OnValidate()
             var
                 Customer: Record 18;
-                ErrorFindUser: Label 'No such customer stored.';
+                FindUserErr: Label 'No such customer stored.';
             begin
                 IF Customer.Get("Sell- to Customer No.") then
                     "Sell- to Customer Name" := Customer.Name
                 else begin
                     ;
-                    Message(ErrorFindUser);
+                    Message(FindUserErr);
                     Rec."Sell- to Customer No." := xRec."Sell- to Customer No.";
                 end;
             end;
@@ -148,7 +148,7 @@ table 51502 "Gudfood Order Header"
 
     trigger OnDelete()
     var
-        GudfoodOrderLine: Record 51503;
+        GudfoodOrderLine: Record "Gudfood Order Line";
     begin
         GudfoodOrderLine.SetFilter("Order No.", '=%1', "No.");
         if not GudfoodOrderLine.FindSet() then
@@ -195,7 +195,7 @@ table 51502 "Gudfood Order Header"
 
         if OldDimSetID <> "Dimension Set ID" then begin
             Modify();
-            if OrderLinesExist then
+            if OrderLinesExist() then
                 UpdateAllLineDim("Dimension Set ID", OldDimSetID);
         END;
     end;
@@ -203,7 +203,7 @@ table 51502 "Gudfood Order Header"
 
     procedure OrderLinesExist(): Boolean
     var
-        GudfoodOrderLine: Record 51503;
+        GudfoodOrderLine: Record "Gudfood Order Line";
     begin
         GudfoodOrderLine.SetRange("Order No.", "No.");
         exit(not GudfoodOrderLine.IsEmpty());
@@ -212,10 +212,10 @@ table 51502 "Gudfood Order Header"
 
     procedure UpdateAllLineDim(NewParentDimSetID: Integer; OldParentDimSetID: Integer)
     var
+        GudfoodOrderLine: Record "Gudfood Order Line";
         NewDimSetID: Integer;
         IsHandled: Boolean;
-        GudfoodOrderLine: Record 51503;
-        DimensionChange: Label 'You may have changed a dimension.\\Do you want to update the lines?';
+        DimensionChangeLbl: Label 'You may have changed a dimension.\\Do you want to update the lines?';
 
     begin
         IsHandled := false;
@@ -224,7 +224,7 @@ table 51502 "Gudfood Order Header"
         if NewParentDimSetID = OldParentDimSetID then
             exit;
         if not GuiAllowed then
-            if not Confirm(DimensionChange) then
+            if not Confirm(DimensionChangeLbl) then
                 exit;
 
         GudfoodOrderLine.SetRange("Order No.", "No.");
@@ -236,7 +236,7 @@ table 51502 "Gudfood Order Header"
                     GudfoodOrderLine."Dimension Set ID" := NewDimSetID;
                     DimMgt.UpdateGlobalDimFromDimSetID(
                       GudfoodOrderLine."Dimension Set ID", GudfoodOrderLine."Shortcut Dimension 1 Code", GudfoodOrderLine."Shortcut Dimension 2 Code");
-                    GudfoodOrderLine.MODIFY;
+                    GudfoodOrderLine.MODIFY();
                 end;
             until GudfoodOrderLine.Next() = 0;
     end;
@@ -249,11 +249,11 @@ table 51502 "Gudfood Order Header"
         OldDimSetID := "Dimension Set ID";
         "Dimension Set ID" :=
           DimMgt.EditDimensionSet(
-            "Dimension Set ID", STRSUBSTNO('%1', "No."),
+            "Dimension Set ID", StrSubstNo("No."),
             "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code");
         if OldDimSetID <> "Dimension Set ID" then begin
-            MODIFY;
-            if OrderLinesExist then
+            Modify();
+            if OrderLinesExist() then
                 UpdateAllLineDim("Dimension Set ID", OldDimSetID);
         end;
     end;
